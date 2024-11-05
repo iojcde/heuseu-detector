@@ -12,23 +12,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  info,
-  success,
-  undo,
 }: Readonly<{
   children: React.ReactNode;
-  info: React.ReactNode;
-  success: React.ReactNode;
-  undo: React.ReactNode;
 }>) {
   return (
     <ViewTransitions>
       <html lang="en">
         <body className={`antialiased`}>
           {children}
-          {undo}
-          {info}
-          {success}
           <Toaster richColors />
           <div className="text-neutral-700 absolute right-0 bottom-0 p-3 text-xs">
             © 2024 창체동아리 PACKET
