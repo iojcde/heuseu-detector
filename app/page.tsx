@@ -10,6 +10,8 @@ import {
 import { toast } from "sonner";
 import { ArrowLeft, Camera, Delete } from "lucide-react";
 import { useTransitionRouter } from "next-view-transitions";
+import { BarcodeScanner } from "./barcode";
+import SuccessPage from "./success/page";
 
 export default function Home() {
   const [studentID, setStudentID] = useState("");
@@ -64,9 +66,8 @@ export default function Home() {
           {" "}
           <div>
             <h2 className="font-semibold text-xl  ">학생증 스캔</h2>
-            {/* <BarcodeScanner /> */}
-            <div className=" flex items-center justify-center border-dashed mt-4 bg-gray-50 w-[36rem] rounded-lg border overflow-hidden h-[24rem]">
-              <Camera />
+            <div className=" flex items-center justify-center border-dashed mt-4 bg-gray-50 w-[36rem] rounded-xl overflow-hidden h-[24rem]">
+              <BarcodeScanner />
             </div>
           </div>
           <div>
