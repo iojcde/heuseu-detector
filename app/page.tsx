@@ -1,101 +1,201 @@
-import Image from "next/image";
+"use client";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { toast } from "sonner";
+import { ArrowLeft, Camera, Delete } from "lucide-react";
+import { useTransitionRouter } from "next-view-transitions";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [studentID, setStudentID] = useState("");
+  const router = useTransitionRouter();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handlekb = (num: number) => {
+    if (studentID.length > 4) return;
+    setStudentID((s) => s + String(num));
+  };
+
+  useEffect(() => {
+    if (studentID.length === 5) handleSubmit();
+  }, [studentID]);
+
+  const handleSubmit = () => {
+    let flag = false;
+
+    if (studentID.length < 5) {
+      flag = true;
+    }
+    if (![1, 2, 3].includes(parseInt(studentID[0]))) {
+      flag = true;
+    }
+    if (parseInt(studentID[1]) != 0) {
+      flag = true;
+    }
+    if (![1, 2, 3, 4, 5].includes(parseInt(studentID[2]))) {
+      flag = true;
+    }
+    if (parseInt(studentID.slice(3, 5)) > 29) {
+      flag = true;
+    }
+    if (flag) {
+      toast.error("학번을 올바르게 입력했는지 확인해주세요");
+      setStudentID("");
+    } else {
+      router.push(`/success?id=${studentID}`);
+    }
+  };
+
+  return (
+    <div className="min-h-screen  p-8 pb-12 gap-24 sm:p-12 flex flex-col justify-center ">
+      <div className="container max-w-min mx-auto w-full pb-24">
+        <div className="flex justify-between">
+          <div className="text-3xl font-bold ">네 출석 확인하실게요</div>
+          <p className=" text-neutral-800 mt-2">
+            단국대학교부속소프트웨어고등학교 자기주도학습 지원 시스템
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="flex gap-24 mt-10">
+          {" "}
+          <div>
+            <h2 className="font-semibold text-xl  ">학생증 스캔</h2>
+            {/* <BarcodeScanner /> */}
+            <div className=" flex items-center justify-center border-dashed mt-4 bg-gray-50 w-[36rem] rounded-lg border overflow-hidden h-[24rem]">
+              <Camera />
+            </div>
+          </div>
+          <div>
+            <div>
+              <h2 className="font-semibold text-xl mb-2">수동 입력</h2>
+              <Label htmlFor="studentid" className="text-xl text-neutral-600">
+                학번
+              </Label>
+              <InputOTP
+                name="studentid"
+                value={studentID}
+                maxLength={5}
+                onChange={setStudentID}
+              >
+                <InputOTPGroup className="mx-auto mb-4 mt-2 font-bold">
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                </InputOTPGroup>
+              </InputOTP>
+              <div className="grid grid-cols-3  gap-1 font-bold">
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(1)}
+                  variant={"ghost"}
+                >
+                  1
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(2)}
+                  variant={"ghost"}
+                >
+                  2
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(3)}
+                  variant={"ghost"}
+                >
+                  3
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(4)}
+                  variant={"ghost"}
+                >
+                  4
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(5)}
+                  variant={"ghost"}
+                >
+                  5
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(6)}
+                  variant={"ghost"}
+                >
+                  6
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(7)}
+                  variant={"ghost"}
+                >
+                  7
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(8)}
+                  variant={"ghost"}
+                >
+                  8
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(9)}
+                  variant={"ghost"}
+                >
+                  9
+                </Button>
+                <Button
+                  size="keypad"
+                  onClick={() => toast.success("탁월함을 넘어 감동으로!")}
+                  variant={"ghost"}
+                ></Button>
+                <Button
+                  size="keypad"
+                  onClick={() => handlekb(0)}
+                  variant={"ghost"}
+                >
+                  0
+                </Button>{" "}
+                <Button
+                  size="keypad"
+                  onClick={() => setStudentID((s) => s.slice(0, -1))}
+                  variant={"ghost"}
+                >
+                  <Delete />
+                </Button>
+              </div>
+              <div className="mt-6 flex gap-3">
+                <Button
+                  onClick={() => {
+                    setStudentID("");
+                  }}
+                  size={"lg"}
+                  variant={"ghost"}
+                >
+                  초기화
+                </Button>
+                <Button
+                  variant={"default"}
+                  className="w-full"
+                  size={"lg"}
+                  onClick={handleSubmit}
+                >
+                  확인
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
