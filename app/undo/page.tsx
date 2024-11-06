@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+
 import { LoaderCircle } from "lucide-react";
 import { useTransitionRouter } from "next-view-transitions";
 import { useSearchParams } from "next/navigation";
@@ -19,7 +19,7 @@ import { useFormStatus } from "react-dom";
 import Form from "next/form";
 import undoAction from "./undoAction";
 
-export function UndoPage() {
+function UndoPage() {
   const searchParams = useSearchParams();
   const router = useTransitionRouter();
 
