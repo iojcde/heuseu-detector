@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import SuccessPage from "./success-client";
+import SuccessClient from "./success-client";
 
-const SuccesssPage = () => {
+const SuccessPage = () => {
   return (
     <Suspense>
-      <SuccessPage />
+      <SuccessClient />
     </Suspense>
   );
 };
