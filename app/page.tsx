@@ -12,6 +12,7 @@ import { ArrowLeft, Camera, Delete } from "lucide-react";
 import { useTransitionRouter } from "next-view-transitions";
 import { BarcodeScanner } from "./barcode";
 import SuccessPage from "./success/page";
+import { studyCheckAction } from "./studycheck";
 
 export default function Home() {
   const [studentID, setStudentID] = useState("");
@@ -22,11 +23,12 @@ export default function Home() {
     setStudentID((s) => s + String(num));
   };
 
-  useEffect(() => {
-    if (studentID.length === 5) handleSubmit();
-  }, [studentID]);
+  // auto submit on completing 5 digits
+  // useEffect(() => {
+  //   if (studentID.length === 5) handleSubmit();
+  // }, [studentID]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let flag = false;
 
     if (studentID.length < 5) {
@@ -48,7 +50,8 @@ export default function Home() {
       toast.error("학번을 올바르게 입력했는지 확인해주세요");
       setStudentID("");
     } else {
-      router.push(`/success?id=${studentID}`);
+      const res = await studyCheckAction(studentID);
+      router.push(`/success?id=${studentID}&type=${res.type}`);
     }
   };
 

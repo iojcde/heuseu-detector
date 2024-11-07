@@ -12,11 +12,12 @@ const SuccessPage = () => {
   const searchParams = useSearchParams();
 
   const id = searchParams.get("id");
+  const type = searchParams.get("type");
 
   useEffect(() => {
     // This function will be called when the animation is completed.
     function onComplete() {
-      router.push(`/info?id=${id}`);
+      router.push(`/info?id=${id}&type=${type}`);
     }
 
     // Listen to events emitted by the DotLottie instance when it is available.
