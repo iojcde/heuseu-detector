@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { ArrowLeft, Camera, Delete } from "lucide-react";
 import { useTransitionRouter } from "next-view-transitions";
 import { BarcodeScanner } from "./barcode";
-import SuccessPage from "./success/page";
+import SuccessPage from "./success/success-client";
 import { studyCheckAction } from "./studycheck";
 
 export default function Home() {
