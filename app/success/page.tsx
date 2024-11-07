@@ -1,11 +1,11 @@
-import { Suspense } from "react"
-import SuccessPage from "./success-client"
+import { Suspense } from "react";
+import SuccessPage from "./success-client";
 
-const SuccesssPage =()=>{
+const SuccesssPage = () => {
   return (
     <Suspense>
-      <SuccessPage
+      <SuccessPage />
     </Suspense>
-  )
-}
+  );
+};
 export default SuccessPage;
